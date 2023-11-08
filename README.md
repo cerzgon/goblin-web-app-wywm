@@ -14,33 +14,7 @@ This project involves demonstrating skills in HTML, CSS, and JavaScript, with a 
 
 ## Project setup
 ```
-npm install
+open index.html in your browser or use Live Server in Visual Studio Code
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-Open http://localhost:5500  in your web browser.
-
-```
-node server.js
-```
-
-Open server in http://localhost:3000
-
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
