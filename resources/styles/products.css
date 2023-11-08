@@ -1,0 +1,63 @@
+/* Style for the game list container */
+#game-list {
+    display: flexbox;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  /* Style for each game item (list item) */
+  #game-list li {
+    display: flex;
+    flex-direction: row; /* Arrange text and image in a row */
+    align-items: center; /* Center vertically */
+    margin-bottom: 20px;
+    width: calc(90% - 10px); /* width with some spacing between items */
+    padding: 10px; /* Add padding around each game item */
+    border: 2px solid #ddd; /* Add a border for separation */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+  
+  /* Style for the game text details */
+  #game-list li > p {
+    margin: 0;
+    padding-right: 10px; /* Add spacing between text and image */
+  }
+  
+  /* Style for the game image */
+  #game-list li img {
+    width: 200px;
+    height: auto;
+  }
+
+  /* Custom CSS for the content */
+.content-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc; /* Add a border around the content box */
+    padding: 20px; /* Add padding to the content box */
+    margin-bottom: 20px; /* Add margin to separate content from game list */
+}
+
+.text {
+    flex: 1; /* Let the text take up remaining space */
+}
+
+.button-box {
+    margin-left: 20px; /* Add margin to separate button from text */
+}
+
+
+
+.navbar {
+    background-color: #a8a5a8;
+  }
+
+  footer {
+    background-color: #9b9b9b;
+  }                             
+
+ 
+  
+  
+  
