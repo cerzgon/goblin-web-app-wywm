@@ -11,3 +11,36 @@ This project involves demonstrating skills in HTML, CSS, and JavaScript, with a 
 8. Set up a Google Firebase Real-time Database to store purchase data.
 9. Implement a Products page using async/await for API calls, with its own CSS file and folder structure.
 10. Ensure the application is responsive with at least three breakpoints.
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+Open http://localhost:5500  in your web browser.
+
+```
+node server.js
+```
+
+Open server in http://localhost:3000
+
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
