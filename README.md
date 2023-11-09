@@ -16,4 +16,3 @@ This project involves demonstrating skills in HTML, CSS, and JavaScript, with a 
 ```
 open index.html in your browser or use Live Server in Visual Studio Code
 ```
-git 
