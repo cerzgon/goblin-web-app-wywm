@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Set the document's character encoding to UTF-8 -->
     <meta charset="utf-8">
-    
+
     <!-- Set the viewport properties to scale the content -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-   
+
     <!-- Meta tags to credit the authors and specify generator tool -->
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.118.2">
-    
+
     <!-- Set the title of the web page -->
     <title>Goblin Store</title>
 
@@ -21,249 +22,343 @@
     <!-- Link to custom styles for this specific template -->
     <link href="../styles/checkOut.css" rel="stylesheet">
 
+    <!-- Include Firebase libraries -->
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js"></script>
+
 </head>
+
 <body class="bg-body-tertiary">
 
-<!-- SVG symbols to be used in the HTML later -->
-<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-    <!-- ... (svg content) ... -->
-    <symbol id="check2" viewBox="0 0 16 16">
-        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-    </symbol>
-    <symbol id="circle-half" viewBox="0 0 16 16">
-        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-    </symbol>
-    <symbol id="moon-stars-fill" viewBox="0 0 16 16">
-        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
-        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .708 0z"/>
-    </symbol>
-    <symbol id="sun-fill" viewBox="0 0 16 16">
-        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-    </symbol>
-</svg>
+    <!-- SVG symbols to be used in the HTML later -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <!-- ... (svg content) ... -->
+        <symbol id="check2" viewBox="0 0 16 16">
+            <path
+                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+        </symbol>
+        <symbol id="circle-half" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+        </symbol>
+        <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+            <path
+                d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z" />
+            <path
+                d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .708 0z" />
+        </symbol>
+        <symbol id="sun-fill" viewBox="0 0 16 16">
+            <path
+                d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+        </symbol>
+    </svg>
 
-        </li>
-    </ul>
-</div>
+    <!-- Main content container -->
+    <div class="container">
+        <main>
+            <!-- Checkout form header and instructions -->
+            <div class="py-5 text-center">
+                <!-- ... (header content) ... -->
+                <img class="d-block mx-auto mb-4" src="../../resources/styles/pics/logoCircle.png" alt="" width="72"
+                    height="57">
+                <h2>Checkout Form</h2>
+                <p class="lead">Please complete your order.</p>
+            </div>
 
-<!-- Main content container -->
-<div class="container">
-    <main>
-        <!-- Checkout form header and instructions -->
-        <div class="py-5 text-center">
-            <!-- ... (header content) ... -->
-            <img class="d-block mx-auto mb-4" src="../../resources/styles/pics/logoCircle.png" alt="" width="72" height="57">
-            <h2>Checkout Form</h2>
-            <p class="lead">Please complete your order.</p>
-        </div>
+            <div class="row g-5">
+                <!-- Cart items display column -->
+                <div class="col-md-5 col-lg-4 order-md-last">
+                    <!-- ... (cart content) ... -->
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-primary">Your cart</span>
+                        <span class="badge bg-primary rounded-pill"></span>
+                    </h4>
 
-        <div class="row g-5">
-            <!-- Cart items display column -->
-            <div class="col-md-5 col-lg-4 order-md-last">
-                <!-- ... (cart content) ... -->
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-primary">Your cart</span>
-                    <span class="badge bg-primary rounded-pill"></span>
-                </h4>
-                    
-                <ul id="cart-items-container" class="list-group mb-3">
-                    <!-- Cart items will be dynamically inserted here -->
-                
-                
-            <script>
-            function populateCartItems() {
-            const cartItemsContainer = document.getElementById('cart-items-container');
-            const cartItems = JSON.parse(localStorage.getItem('items')) || [];
-            let total = 0;
+                    <ul id="cart-items-container" class="list-group mb-3">
+                        <!-- Cart items will be dynamically inserted here -->
+                        <script>
+                            function populateCartItems() {
+                                const cartItemsContainer = document.getElementById('cart-items-container');
+                                const cartItems = JSON.parse(localStorage.getItem('items')) || [];
+                                let total = 0;
 
-            cartItemsContainer.innerHTML = '';
+                                cartItemsContainer.innerHTML = '';
 
-            cartItems.forEach((item) => {
-                const cost = item.price * item.quantity;
-                total += cost;
+                                cartItems.forEach((item) => {
+                                    const cost = item.price * item.quantity;
+                                    total += cost;
 
-                const itemHtml = `
-                <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div>
-                    <h6 class="my-0">${item.name}</h6>
-                    <small class="text-muted">Quantity: ${item.quantity}</small>
+                                    const itemHtml = `
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                <h6 class="my-0">${item.name}</h6>
+                                <small class="text-muted">Quantity: ${item.quantity}</small>
+                                </div>
+                                <span class="text-muted">$${cost.toFixed(2)}</span>
+                            </li>`;
+                                        cartItemsContainer.insertAdjacentHTML('beforeend', itemHtml);
+                                    });
+
+                                    // Append the total cost
+                                    const totalHtml = `
+                            <li class="list-group-item d-flex justify-content-between">
+                            <span>Total (CAD)</span>
+                            <strong>$${total.toFixed(2)}</strong>
+                            </li>`;
+                                cartItemsContainer.insertAdjacentHTML('beforeend', totalHtml);
+                            }
+
+                            document.addEventListener('DOMContentLoaded', populateCartItems);            
+                        </script>
+                </div>
+                <!-- Billing address form column -->
+                <div class="col-md-7 col-lg-8">
+                    <!-- ... (form content) ... -->
+                    <h4 class="mb-3">Billing Address</h4>
+
+                    <form id="checkout-form" target="_blank" action="https://formsubmit.co/cerzgon@gmail.com"
+                        method="POST" class="needs-validation" id="checkout-form" novalidate>
+
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="firstName" class="form-label">First name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="" value=""
+                                    pattern="^[a-zA-Z\s]+$" required>
+                                <div class="invalid-feedback">
+                                    Valid first name is required.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label">Last name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="" value=""
+                                    pattern="^[a-zA-Z\s]+$" required>
+                                <div class="invalid-feedback">
+                                    Valid last name is required.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="email" class="form-label">Email Address <span
+                                        class="text-body-secondary"></span></label>
+                                <input type="text" class="form-control" id="email" placeholder="username@example.com"
+                                    pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address for shipping updates.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="phone" class="form-label">Phone number <span
+                                        class="text-body-secondary"></span></label>
+                                <input type="text" class="form-control" id="phone" placeholder="XXX-XXX-XXXX" value=""
+                                    pattern="^\d{3}-\d{3}-\d{4}$" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid phone number for shipping updates.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" placeholder="1234 Main St"
+                                    pattern="^.{5,}$" required>
+                                <div class="invalid-feedback">
+                                    Please enter your shipping address.
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label for="country" class="form-label">Country</label>
+                                <select class="form-select" id="country" required>
+                                    <option value="">Choose...</option>
+                                    <option>Canada</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid country.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="state" class="form-label">Province</label>
+                                <select class="form-select" id="state" required>
+                                    <option value="">Choose...</option>
+                                    <option value="AB">Alberta</option>
+                                    <option value="BC">British Columbia</option>
+                                    <option value="MB">Manitoba</option>
+                                    <option value="NB">New Brunswick</option>
+                                    <option value="NL">Newfoundland and Labrador</option>
+                                    <option value="NS">Nova Scotia</option>
+                                    <option value="NT">Northwest Territories</option>
+                                    <option value="NU">Nunavut</option>
+                                    <option value="ON">Ontario</option>
+                                    <option value="PE">Prince Edward Island</option>
+                                    <option value="QC">Quebec</option>
+                                    <option value="SK">Saskatchewan</option>
+                                    <option value="YT">Yukon</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid province.
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="zip" class="form-label">Postal Code</label>
+                                <input type="text" class="form-control" id="zip" placeholder="XXX XXX"
+                                    pattern="[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d" required>
+                                <div class="invalid-feedback">
+                                    Postal code required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <hr class="my-4">
+
+                        <h4 class="mb-3">Credit Card Payment</h4>
+
+                        <div class="my-3">
+                        </div>
+
+                        <div class="row gy-3">
+                            <div class="col-md-6">
+                                <label for="ccName" class="form-label">Name on card</label>
+                                <input type="text" class="form-control" id="ccName" placeholder=""
+                                    pattern="^[a-zA-Z\s]+$" required>
+                                <small class="text-body-secondary">Full name as displayed on card</small>
+                                <div class="invalid-feedback">
+                                    Name on card is required
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="ccNumber" class="form-label">Credit card number</label>
+                                <input type="text" class="form-control" id="ccNumber" placeholder="" pattern="^\d{16}$"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Credit card number is required
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="ccExpiration" class="form-label">Expiration</label>
+                                <input type="text" class="form-control" id="ccExpiration" placeholder="MM/YY"
+                                    pattern="^(0[1-9]|1[0-2])\/\d{2}$" required>
+                                <div class="invalid-feedback">
+                                    Expiration date required
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="ccCvv" class="form-label">CVV</label>
+                                <input type="text" class="form-control" id="ccCvv" placeholder="" pattern="^\d{3}$"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Security code required
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <script type="module">
+                            // Import the functions you need from the SDKs you need
+                            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+                            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+                            // TODO: Add SDKs for Firebase products that you want to use
+                            // https://firebase.google.com/docs/web/setup#available-libraries
+
+                            // Your web app's Firebase configuration
+                            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                            const firebaseConfig = {
+                                apiKey: "AIzaSyAbyH-gxJQQPmb5aBEtlmw4ZGgJwMqtItY",
+                                authDomain: "goblin-web-app-wywm.firebaseapp.com",
+                                projectId: "goblin-web-app-wywm",
+                                storageBucket: "goblin-web-app-wywm.appspot.com",
+                                messagingSenderId: "80699472841",
+                                appId: "1:80699472841:web:062aa67094f1cc8c95c618",
+                                measurementId: "G-93QXFMQPKE"
+                            };
+
+                            // Initialize Firebase
+                            const app = initializeApp(firebaseConfig);
+                            const analytics = getAnalytics(app);
+                        </script>
+
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">Submit Order</button>
+                    </form>
+                    <div id="thankYouMessage" class="alert alert-success" role="alert" style="display:none;">
+                        Thank you for your submission!
                     </div>
-                    <span class="text-muted">$${cost.toFixed(2)}</span>
-                </li>`;
-                cartItemsContainer.insertAdjacentHTML('beforeend', itemHtml);
-            });
+                </div>
 
-            // Append the total cost
-            const totalHtml = `
-                <li class="list-group-item d-flex justify-content-between">
-                <span>Total (CAD)</span>
-                <strong>$${total.toFixed(2)}</strong>
-                </li>`;
-            cartItemsContainer.insertAdjacentHTML('beforeend', totalHtml);
-            }
 
-            document.addEventListener('DOMContentLoaded', populateCartItems);            
-            </script>
+                <!-- Firebase Firestore integration -->
+                <script>
+                    // Your existing Firebase configuration
+                    const firebaseConfig = {
+                        apiKey: "AIzaSyAbyH-gxJQQPmb5aBEtlmw4ZGgJwMqtItY",
+                        authDomain: "goblin-web-app-wywm.firebaseapp.com",
+                        projectId: "goblin-web-app-wywm",
+                        storageBucket: "goblin-web-app-wywm.appspot.com",
+                        messagingSenderId: "80699472841",
+                        appId: "1:80699472841:web:062aa67094f1cc8c95c618",
+                        measurementId: "G-93QXFMQPKE"
+                    };
+
+                    // Initialize Firebase
+                    const app = firebase.initializeApp(firebaseConfig);
+                    const db = firebase.firestore();
+
+                    // Form submission handler
+                    document.getElementById('checkout-form').addEventListener('submit', function (event) {
+                        event.preventDefault();
+
+                        // Collect form data
+                        const formData = {
+                            firstName: document.getElementById('firstName').value,
+                            lastName: document.getElementById('lastName').value,
+                            email: document.getElementById('email').value,
+                            phone: document.getElementById('phone').value,
+                            address: document.getElementById('address').value,
+                            country: document.getElementById('country').value,
+                            state: document.getElementById('state').value,
+                            zip: document.getElementById('zip').value,
+                            ccName: document.getElementById('ccName').value,
+                            ccNumber: document.getElementById('ccNumber').value,
+                            ccExpiration: document.getElementById('ccExpiration').value,
+                            ccCvv: document.getElementById('ccCvv').value,
+                            // Add other fields as needed
+                        };
+
+                        // Add form data to Firestore
+                        db.collection("orders").add(formData)
+                            .then((docRef) => {
+                                console.log("Document written with ID: ", docRef.id);
+                                document.getElementById('thankYouMessage').style.display = 'block';
+                                document.getElementById('checkout-form').style.display = 'none';
+                            })
+                            .catch((error) => {
+                                console.error("Error adding document: ", error);
+                            });
+                    });
+                </script>
 
             </div>
-            <!-- Billing address form column -->
-            <div class="col-md-7 col-lg-8">
-                <!-- ... (form content) ... -->
-                <h4 class="mb-3">Billing Address</h4>
+            <div id="footer"></div>
+        </main>
+        <footer class="my-5 pt-5 text-body-secondary text-center text-small">
+            <p class="mb-1">&copy; 2022 Goblin Store</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="http://127.0.0.1:5500/">Home</a></li>
+                <li class="list-inline-item"><a href="http://127.0.0.1:5500/resources/pages/shop.html">Shop</a></li>
+                <li class="list-inline-item"><a href="http://127.0.0.1:5500/resources/pages/contact.html">Contact Us</a>
+                </li>
+            </ul>
+        </footer>
 
-                <form action="https://api.web3forms.com/submit" method="POST" class="needs-validation" id="checkout-form" novalidate>
-                    <input type="hidden" name="access_key" value="0945863c-e363-4c68-b284-95678b998bf5">
-                    <div class="row g-3">
-                        <div class="col-sm-6">
-                            <label for="firstName" class="form-label">First name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value="" pattern="^[a-zA-Z\s]+$" required>
-                            <div class="invalid-feedback">
-                                Valid first name is required.
-                            </div>
-                        </div>
+    </div>
 
-                        <div class="col-sm-6">
-                            <label for="lastName" class="form-label">Last name</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" pattern="^[a-zA-Z\s]+$" required>
-                            <div class="invalid-feedback">
-                                Valid last name is required.
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="email" class="form-label">Email Address <span class="text-body-secondary"></span></label>
-                            <input type="text" class="form-control" id="email" placeholder="username@example.com" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" required>
-                            <div class="invalid-feedback">
-                                Please enter a valid email address for shipping updates.
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="phone" class="form-label">Phone number <span class="text-body-secondary"></span></label>
-                            <input type="text" class="form-control" id="phone" placeholder="XXX-XXX-XXXX" value="" pattern="^\d{3}-\d{3}-\d{4}$" required>
-                            <div class="invalid-feedback">
-                                Please enter a valid phone number for shipping updates.
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" pattern="^.{5,}$" required>
-                            <div class="invalid-feedback">
-                                Please enter your shipping address.
-                            </div>
-                        </div>
-
-                        <div class="col-md-5">
-                            <label for="country" class="form-label">Country</label>
-                            <select class="form-select" id="country" required>
-                                <option value="">Choose...</option>
-                                <option>Canada</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a valid country.
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="state" class="form-label">Province</label>
-                            <select class="form-select" id="state" required>
-                                <option value="">Choose...</option>
-                                <option value="AB">Alberta</option>
-                                <option value="BC">British Columbia</option>
-                                <option value="MB">Manitoba</option>
-                                <option value="NB">New Brunswick</option>
-                                <option value="NL">Newfoundland and Labrador</option>
-                                <option value="NS">Nova Scotia</option>
-                                <option value="NT">Northwest Territories</option>
-                                <option value="NU">Nunavut</option>
-                                <option value="ON">Ontario</option>
-                                <option value="PE">Prince Edward Island</option>
-                                <option value="QC">Quebec</option>
-                                <option value="SK">Saskatchewan</option>
-                                <option value="YT">Yukon</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please provide a valid province.
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label for="zip" class="form-label">Postal Code</label>
-                            <input type="text" class="form-control" id="zip" placeholder="XXX XXX" pattern="[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d" required>
-                            <div class="invalid-feedback">
-                                Postal code required.
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="my-4">
-
-                    <hr class="my-4">
-
-                    <h4 class="mb-3">Credit Card Payment</h4>
-
-                    <div class="my-3">
-                        </div>
-
-                    <div class="row gy-3">
-                        <div class="col-md-6">
-                            <label for="ccName" class="form-label">Name on card</label>
-                            <input type="text" class="form-control" id="ccName" placeholder="" pattern="^[a-zA-Z\s]+$" required>
-                            <small class="text-body-secondary">Full name as displayed on card</small>
-                            <div class="invalid-feedback">
-                                Name on card is required
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="ccNumber" class="form-label">Credit card number</label>
-                            <input type="text" class="form-control" id="ccNumber" placeholder="" pattern="^\d{16}$" required>
-                            <div class="invalid-feedback">
-                                Credit card number is required
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label for="ccExpiration" class="form-label">Expiration</label>
-                            <input type="text" class="form-control" id="ccExpiration" placeholder="MM/YY" pattern="^(0[1-9]|1[0-2])\/\d{2}$" required>
-                            <div class="invalid-feedback">
-                                Expiration date required
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label for="ccCvv" class="form-label">CVV</label>
-                            <input type="text" class="form-control" id="ccCvv" placeholder="" pattern="^\d{3}$" required>
-                            <div class="invalid-feedback">
-                                Security code required
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="my-4">
-
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Submit Order</button>
-                    
-                <script src="../scripts/checkOut.js"></script>
-                </form>
-                <script src="https://web3forms.com/client/script.js" async defer></script>
-            </div>
-        </div>
-        <div id="footer"></div>
-    </main>
-    <footer class="my-5 pt-5 text-body-secondary text-center text-small">
-        <p class="mb-1">&copy; 2022 Goblin Store</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="http://127.0.0.1:5500/">Home</a></li>
-            <li class="list-inline-item"><a href="http://127.0.0.1:5500/resources/pages/shop.html">Shop</a></li>
-            <li class="list-inline-item"><a href="http://127.0.0.1:5500/resources/pages/contact.html">Contact Us</a></li>
-        </ul>
-    </footer>
-
-</div>
-
-<script>
+    <script>
         // Start of custom JavaScript for handling cart items -->
         // Function to retrieve cart items from URL query parameters
         function getCartItemsFromQueryParameters() {
@@ -277,8 +372,8 @@
         const cartItems = getCartItemsFromQueryParameters();
 
         // Add an event listener to execute once the DOM is fully loaded
-        document.addEventListener("DOMContentLoaded", function(event) {
-        
+        document.addEventListener("DOMContentLoaded", function (event) {
+
             // Call function to display cart items on the page
             loadCartItems();
 
@@ -312,7 +407,18 @@
                     cartItemsContainer.appendChild(listItem);
                 });
             }
-        });
-    </script> 
-    </body>
-    </html>
+
+            document.getElementById('checkout-form').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Hide the form
+                document.getElementById('checkout-form').style.display = 'none';
+
+                // Show the thank you message
+                document.getElementById('thankYouMessage').style.display = 'block';
+            });
+    </script>
+    // Custom JavaScript for handling cart items
+    <script src="../scripts/checkOut.js"></script>
+</body>
+</html>~

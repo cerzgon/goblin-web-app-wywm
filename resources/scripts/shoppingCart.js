@@ -1,24 +1,21 @@
 $(document).ready(function () {
-  
   let itemNumber = 0;
   let products = []; // Changed 'product' to 'products' for consistency
-  
+
   if (localStorage.getItem("items")) {
     products = JSON.parse(localStorage.getItem("items"));
     itemNumber = products.length;
   }
   $(".numberOfItems").text(itemNumber);
 
-
-    // Function to calculate and update the total cost
-    function updateTotalCost() {
-      let totalCost = 0;
-      products.forEach((product) => {
-        totalCost += product.price * product.quantity;
-      });
-      $("#totalCostValue").text(totalCost.toFixed(2));
-    }
-  
+  // Function to calculate and update the total cost
+  function updateTotalCost() {
+    let totalCost = 0;
+    products.forEach((product) => {
+      totalCost += product.price * product.quantity;
+    });
+    $("#totalCostValue").text(totalCost.toFixed(2));
+  }
 
   // when the user clicks the shopping cart button, update .modal-body with the items in the cart
   $(".buttonWrapper").click(function () {
@@ -29,7 +26,8 @@ $(document).ready(function () {
       modalBody.empty(); // empty the initial contents of modal body before adding new items
 
       // render products name, price, and quantity
-      products.forEach((product) => { // Changed `map` to `forEach`
+      products.forEach((product) => {
+        // Changed `map` to `forEach`
         modalBody.append(
           `<div class="productWrapper" id="${product.name}">
                 <div id="productInfo">
@@ -93,23 +91,22 @@ $(document).ready(function () {
     }
   });
 
-//   // Retrieve cart items from wherever you're storing them (e.g., an array or local storage)
-// // Function to retrieve cart items from local storage
-// function getCartItemsFromLocalStorage() {
-//   const items = localStorage.getItem('items');
-//   return items ? JSON.parse(items) : [];
-// }
+  //   // Retrieve cart items from wherever you're storing them (e.g., an array or local storage)
+  // // Function to retrieve cart items from local storage
+  // function getCartItemsFromLocalStorage() {
+  //   const items = localStorage.getItem('items');
+  //   return items ? JSON.parse(items) : [];
+  // }
 
-// // Retrieve cart items from local storage
-// // const cartItems = getCartItemsFromLocalStorage();
+  // // Retrieve cart items from local storage
+  // // const cartItems = getCartItemsFromLocalStorage();
 
-// // Send cartItems to the other page (assuming you're navigating to another page)
-// // You can use query parameters, cookies, or other methods to send data to the other page.
-// // Here's an example of using query parameters:
-// const queryParams = `cartItems=${JSON.stringify(cartItems)}`;
-// const destinationPageURL = '../pages/checkOut.html?' + queryParams;
+  // // Send cartItems to the other page (assuming you're navigating to another page)
+  // // You can use query parameters, cookies, or other methods to send data to the other page.
+  // // Here's an example of using query parameters:
+  // const queryParams = `cartItems=${JSON.stringify(cartItems)}`;
+  // const destinationPageURL = '../pages/checkOut.html?' + queryParams;
 
-// Redirect to the other page
-// window.location.href = 'resources/pages/checkOut.html';
-
+  // Redirect to the other page
+  // window.location.href = 'resources/pages/checkOut.html';
 });
