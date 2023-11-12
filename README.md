@@ -21,8 +21,8 @@ open index.html in your browser or use Live Server in Visual Studio Code
 1. The Shop page now features new goblin images, each with an "Add Item" button below. I utilized Bootstrap Toast for alerting the user whenever an item is added to the shopping cart. The localStorage now correctly saves each item.
 2. The shopping cart modal accurately records the image and quantity of each item and calculates the total purchase price. The issue with negative values has been resolved.
 3. The checkout page is effectively linked to the shopping cart modal via the "Continue to Checkout" button. On the checkout page, the shopping cart contents and form data (note: using Bootstrap) are displayed side by side. Each form field is validated using a regex pattern.
-4. There are issues with the emailer service; I have been using EmailJS (https://www.emailjs.com/) for this purpose.
+4. There were no issues with the emailer service; I have been using EmailJS (https://www.emailjs.com/) for this purpose. The emailer worked well, there were some issues with masking of the credit card number and having the shopping cart appear populated.  I have included several screen shots in the extras folder.
 5. For the database service, I chose Google Firebase, but I've encountered some challenges in getting it operational. The form is designed to collect six essential pieces of information. The 'extras' folder contains the designs (i.e., wireframes) for both the checkout and product pages.
 6. The Products page utilizes an API provided by the site https://rawg.io/. This is implemented using async/await in conjunction with the JS Fetch API. The 'Game List' button on the page, when clicked, triggers an event that calls the API and retrieves twenty movies from the RAWG website. I used four unique keys (i.e., name, released, genre, rating, and img) to extract the corresponding values for product name, release date, genre, and image.
-7. The 'extras' folder includes images and wireframes (i.e., draw.io).
+7. The 'extras' folder includes images and wireframes (i.e., draw.io), I have also include screen shots.
                    
